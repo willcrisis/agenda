@@ -1,12 +1,11 @@
 package willcrisis.com.agenda;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import willcrisis.com.agenda.dao.AlunoDAO;
@@ -21,7 +20,14 @@ public class NovoAlunoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_novo_aluno);
 
+        Intent intent = getIntent();
+        Aluno aluno = (Aluno) intent.getSerializableExtra("aluno");
+
         helper = new NovoAlunoHelper(this);
+
+        if (aluno != null) {
+            helper.popularAluno(aluno);
+        }
     }
 
     @Override
@@ -38,7 +44,12 @@ public class NovoAlunoActivity extends AppCompatActivity {
                 Aluno aluno = helper.getAluno();
 
                 AlunoDAO dao = new AlunoDAO(this);
-                dao.incluir(aluno);
+                if (aluno.getId() == null) {
+                    dao.incluir(aluno);
+                } else {
+                    dao.alterar(aluno);
+                }
+
                 dao.close();
 
                 Toast.makeText(NovoAlunoActivity.this, "Aluno " + aluno.getNome() + " salvo", Toast.LENGTH_LONG).show();

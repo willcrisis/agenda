@@ -1,9 +1,11 @@
 package willcrisis.com.agenda.modelo;
 
+import java.io.Serializable;
+
 /**
  * Created by kraus on 17/08/2016.
  */
-public class Aluno {
+public class Aluno implements Serializable {
     private Long id;
     private String nome;
     private String endereco;

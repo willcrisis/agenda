@@ -1,6 +1,5 @@
 package willcrisis.com.agenda;
 
-import android.view.View;
 import android.widget.EditText;
 import android.widget.RatingBar;
 
@@ -16,6 +15,7 @@ public class NovoAlunoHelper {
     private final EditText campoEmail;
     private final EditText campoSite;
     private final RatingBar campoNota;
+    private Aluno aluno;
 
     public NovoAlunoHelper(NovoAlunoActivity activity) {
         campoNome = (EditText) activity.findViewById(R.id.novo_aluno_nome);
@@ -24,10 +24,10 @@ public class NovoAlunoHelper {
         campoEmail = (EditText) activity.findViewById(R.id.novo_aluno_email);
         campoSite = (EditText) activity.findViewById(R.id.novo_aluno_site);
         campoNota = (RatingBar) activity.findViewById(R.id.novo_aluno_nota);
+        aluno = new Aluno();
     }
 
     public Aluno getAluno() {
-        Aluno aluno = new Aluno();
         aluno.setNome(campoNome.getText().toString());
         aluno.setEndereco(campoEndereco.getText().toString());
         aluno.setTelefone(campoTelefone.getText().toString());
@@ -36,5 +36,15 @@ public class NovoAlunoHelper {
         aluno.setNota(Double.valueOf(campoNota.getProgress()));
 
         return aluno;
+    }
+
+    public void popularAluno(Aluno aluno) {
+        campoNome.setText(aluno.getNome());
+        campoTelefone.setText(aluno.getTelefone());
+        campoEndereco.setText(aluno.getEndereco());
+        campoEmail.setText(aluno.getEmail());
+        campoSite.setText(aluno.getSite());
+        campoNota.setProgress(aluno.getNota().intValue());
+        this.aluno = aluno;
     }
 }
