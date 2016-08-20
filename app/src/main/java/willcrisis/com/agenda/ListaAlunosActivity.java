@@ -1,7 +1,11 @@
 package willcrisis.com.agenda;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
 import android.view.MenuItem;
@@ -70,13 +74,50 @@ public class ListaAlunosActivity extends AppCompatActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, final ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
+
+        AdapterView.AdapterContextMenuInfo contextMenuInfo = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        final Aluno aluno = (Aluno) listaAlunos.getItemAtPosition(contextMenuInfo.position);
+
+        MenuItem ligar = menu.add("Ligar para aluno");
+        ligar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                if (ActivityCompat.checkSelfPermission(ListaAlunosActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(ListaAlunosActivity.this, new String[]{Manifest.permission.CALL_PHONE}, 1);
+                } else {
+                    Intent intent = new Intent(Intent.ACTION_CALL);
+                    intent.setData(Uri.parse("tel:" + aluno.getTelefone()));
+                    startActivity(intent);
+                }
+
+                return false;
+            }
+        });
+
+        MenuItem mandarSms = menu.add("Mandar SMS");
+        Intent intentSms = new Intent(Intent.ACTION_VIEW);
+        intentSms.setData(Uri.parse("sms:" + aluno.getTelefone()));
+        mandarSms.setIntent(intentSms);
+
+        MenuItem acharNoMapa = menu.add("Achar no mapa");
+        Intent intentGeo = new Intent(Intent.ACTION_VIEW);
+        intentGeo.setData(Uri.parse("geo:0,0?q=" + aluno.getEndereco()));
+        acharNoMapa.setIntent(intentGeo);
+
+        MenuItem visitarSite = menu.add("Visitar site");
+        String site = aluno.getSite();
+        if (!(site.startsWith("http://") || site.startsWith("https://"))) {
+            site = "http://" + site;
+        }
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(site));
+
+        visitarSite.setIntent(intent);
+
         MenuItem excluir = menu.add("Excluir");
         excluir.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                AdapterView.AdapterContextMenuInfo contextMenuInfo = (AdapterView.AdapterContextMenuInfo) menuInfo;
-                Aluno aluno = (Aluno) listaAlunos.getItemAtPosition(contextMenuInfo.position);
-
                 AlunoDAO dao = new AlunoDAO(ListaAlunosActivity.this);
                 dao.excluir(aluno);
                 dao.close();

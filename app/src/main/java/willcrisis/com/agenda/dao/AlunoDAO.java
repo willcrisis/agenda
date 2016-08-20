@@ -17,20 +17,29 @@ import willcrisis.com.agenda.modelo.Aluno;
  */
 public class AlunoDAO extends SQLiteOpenHelper {
     public AlunoDAO(Context context) {
-        super(context, "Agenda", null, 1);
+        super(context, "Agenda", null, 2);
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String sql = "CREATE TABLE Aluno (id INTEGER PRIMARY KEY, nome TEXT NOT NULL, telefone TEXT, endereco TEXT, email TEXT, site TEXT, nota REAL);";
+        String sql = "CREATE TABLE Aluno (id INTEGER PRIMARY KEY, " +
+                "nome TEXT NOT NULL, " +
+                "telefone TEXT, " +
+                "endereco TEXT, " +
+                "email TEXT, " +
+                "site TEXT, " +
+                "nota REAL, " +
+                "caminhoFoto TEXT);";
         sqLiteDatabase.execSQL(sql);
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
-        String sql = "DROP TABLE  IF EXISTS Alunos;";
-        sqLiteDatabase.execSQL(sql);
-        onCreate(sqLiteDatabase);
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        switch (oldVersion) {
+            case 1:
+                String sql = "ALTER TABLE Aluno ADD COLUMN caminhoFoto TEXT;";
+                db.execSQL(sql);
+        }
     }
 
     public void incluir(Aluno aluno) {
@@ -57,6 +66,7 @@ public class AlunoDAO extends SQLiteOpenHelper {
             aluno.setEmail(c.getString(c.getColumnIndex("email")));
             aluno.setSite(c.getString(c.getColumnIndex("site")));
             aluno.setNota(c.getDouble(c.getColumnIndex("nota")));
+            aluno.setCaminhoFoto(c.getString(c.getColumnIndex("caminhoFoto")));
 
             alunos.add(aluno);
         }
@@ -90,6 +100,7 @@ public class AlunoDAO extends SQLiteOpenHelper {
         values.put("email", aluno.getEmail());
         values.put("site", aluno.getSite());
         values.put("nota", aluno.getNota());
+        values.put("caminhoFoto", aluno.getCaminhoFoto());
         return values;
     }
 }
