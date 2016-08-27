@@ -29,27 +29,27 @@
         <EditText android:id="@+id/novo_aluno_nome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nome" />
+            android:hint="@string/campo_nome" />
 
         <EditText android:id="@+id/novo_aluno_endereco"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Endereço" />
+            android:hint="@string/campo_endereco" />
 
         <EditText android:id="@+id/novo_aluno_telefone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Telefone" />
+            android:hint="@string/campo_telefone" />
 
         <EditText android:id="@+id/novo_aluno_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="E-mail" />
+            android:hint="@string/campo_email" />
 
         <EditText android:id="@+id/novo_aluno_site"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Site" />
+            android:hint="@string/campo_site" />
 
         <RatingBar android:id="@+id/novo_aluno_nota"
             android:layout_width="wrap_content"

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Calendar</string>
+    <string name="campo_nome">Name</string>
+    <string name="campo_endereco">Address</string>
+    <string name="campo_telefone">Phone No.</string>
+    <string name="campo_email">E-mail</string>
+    <string name="campo_site">Site</string>
+</resources>
