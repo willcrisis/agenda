@@ -11,4 +11,9 @@
         android:icon="@drawable/ic_receber"
         android:title="@string/menu_baixar_provas"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_lista_alunos_mapa"
+        android:icon="@drawable/ic_mapa"
+        android:title="@string/menu_vizualizar_mapa"
+        app:showAsAction="always" />
 </menu>

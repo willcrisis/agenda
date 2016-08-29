@@ -77,6 +77,14 @@ public class ListaAlunosActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, ProvasActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.menu_lista_alunos_mapa:
+                if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+                } else {
+                    Intent mapa = new Intent(this, MapaActivity.class);
+                    startActivity(mapa);
+                }
+                break;
         }
         return true;
     }

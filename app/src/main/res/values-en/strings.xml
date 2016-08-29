@@ -8,4 +8,5 @@
     <string name="campo_site">Site</string>
     <string name="menu_enviar_alunos">Enviar alunos</string>
     <string name="menu_baixar_provas">Baixar provas</string>
+    <string name="menu_vizualizar_mapa">Visualizar no mapa</string>
 </resources>
