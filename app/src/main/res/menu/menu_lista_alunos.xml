@@ -4,6 +4,11 @@
     <item
         android:id="@+id/menu_lista_alunos_enviar"
         android:icon="@drawable/ic_enviar"
-        android:title="Enviar notas"
+        android:title="@string/menu_enviar_alunos"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_lista_alunos_provas"
+        android:icon="@drawable/ic_receber"
+        android:title="@string/menu_baixar_provas"
         app:showAsAction="always" />
 </menu>

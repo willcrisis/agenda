@@ -19,13 +19,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".NovoAlunoActivity">
-        </activity>
+        <activity android:name=".NovoAlunoActivity" />
+
         <receiver android:name=".receiver.SMSReceiver">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
+
+        <activity android:name=".ProvasActivity" />
+        <activity android:name=".DetalhesProvaActivity"></activity>
     </application>
 
 </manifest>
