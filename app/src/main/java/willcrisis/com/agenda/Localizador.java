@@ -16,9 +16,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 
-/**
- * Created by willian.krause on 29/08/2016.
- */
 public class Localizador implements GoogleApiClient.ConnectionCallbacks, LocationListener {
     private final Context context;
     private final GoogleApiClient api;

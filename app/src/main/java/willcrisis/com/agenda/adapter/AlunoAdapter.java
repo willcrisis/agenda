@@ -15,9 +15,6 @@ import java.util.List;
 import willcrisis.com.agenda.R;
 import willcrisis.com.agenda.modelo.Aluno;
 
-/**
- * Created by kraus on 23/08/2016.
- */
 public class AlunoAdapter extends BaseAdapter {
     private final Context context;
     private final List<Aluno> alunos;

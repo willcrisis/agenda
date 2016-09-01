@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import java.io.File;
 
-import willcrisis.com.agenda.dao.AlunoDAO;
+import willcrisis.com.agenda.dao.AlunoRealmDAO;
 import willcrisis.com.agenda.modelo.Aluno;
 
 public class NovoAlunoActivity extends AppCompatActivity {
@@ -23,14 +23,22 @@ public class NovoAlunoActivity extends AppCompatActivity {
     public static final int CODIGO_CAMERA = 1;
     private NovoAlunoHelper helper;
     private String caminhoArquivo;
+    private AlunoRealmDAO dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_novo_aluno);
 
+        dao = new AlunoRealmDAO(this);
+
         Intent intent = getIntent();
-        Aluno aluno = (Aluno) intent.getSerializableExtra("aluno");
+        Long alunoId = intent.getLongExtra("alunoId", 0L);
+
+        Aluno aluno = null;
+        if (alunoId > 0) {
+            aluno = dao.obter(alunoId);
+        }
 
         helper = new NovoAlunoHelper(this);
 
@@ -64,14 +72,12 @@ public class NovoAlunoActivity extends AppCompatActivity {
             case R.id.menu_novo_aluno_salvar:
                 Aluno aluno = helper.getAluno();
 
-                AlunoDAO dao = new AlunoDAO(this);
                 if (aluno.getId() == null) {
+                    aluno.setId(dao.proximoId());
                     dao.incluir(aluno);
                 } else {
                     dao.alterar(aluno);
                 }
-
-                dao.close();
 
                 Toast.makeText(NovoAlunoActivity.this, "Aluno " + aluno.getNome() + " salvo", Toast.LENGTH_LONG).show();
                 finish();

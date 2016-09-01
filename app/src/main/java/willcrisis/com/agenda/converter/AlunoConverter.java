@@ -7,9 +7,6 @@ import java.util.List;
 
 import willcrisis.com.agenda.modelo.Aluno;
 
-/**
- * Created by kraus on 23/08/2016.
- */
 public class AlunoConverter {
 
     public String converterLista(List<Aluno> alunos) {

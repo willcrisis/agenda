@@ -8,9 +8,6 @@ import android.widget.RatingBar;
 
 import willcrisis.com.agenda.modelo.Aluno;
 
-/**
- * Created by kraus on 17/08/2016.
- */
 public class NovoAlunoHelper {
     private final EditText campoNome;
     private final EditText campoEndereco;

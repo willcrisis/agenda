@@ -14,22 +14,24 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.List;
 
 import willcrisis.com.agenda.adapter.AlunoAdapter;
-import willcrisis.com.agenda.dao.AlunoDAO;
+import willcrisis.com.agenda.dao.AlunoRealmDAO;
 import willcrisis.com.agenda.modelo.Aluno;
 
 public class ListaAlunosActivity extends AppCompatActivity {
 
     private ListView listaAlunos;
+    private AlunoRealmDAO dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_alunos);
+
+        dao = new AlunoRealmDAO(this);
 
         listaAlunos = (ListView) findViewById(R.id.lista_alunos);
 
@@ -39,7 +41,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
                 Aluno aluno = (Aluno) listaAlunos.getItemAtPosition(position);
 
                 Intent intent = new Intent(ListaAlunosActivity.this, NovoAlunoActivity.class);
-                intent.putExtra("aluno", aluno);
+                intent.putExtra("alunoId", aluno.getId());
                 startActivity(intent);
             }
         });
@@ -92,16 +94,12 @@ public class ListaAlunosActivity extends AppCompatActivity {
     private void listarAlunos() {
         List<Aluno> alunos = getAlunos();
 
-
         AlunoAdapter adapter = new AlunoAdapter(this, alunos);
         listaAlunos.setAdapter(adapter);
     }
 
     private List<Aluno> getAlunos() {
-        AlunoDAO dao = new AlunoDAO(this);
-        List<Aluno> alunos = dao.listar();
-        dao.close();
-        return alunos;
+        return dao.listar();
     }
 
     @Override
@@ -157,13 +155,8 @@ public class ListaAlunosActivity extends AppCompatActivity {
         excluir.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                AlunoDAO dao = new AlunoDAO(ListaAlunosActivity.this);
                 dao.excluir(aluno);
-                dao.close();
-
                 listarAlunos();
-
-                Toast.makeText(ListaAlunosActivity.this, "Aluno " + aluno.getNome()  + " excluído", Toast.LENGTH_SHORT).show();
                 return false;
             }
         });

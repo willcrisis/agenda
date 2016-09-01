@@ -15,9 +15,6 @@ import java.util.List;
 
 import willcrisis.com.agenda.modelo.Prova;
 
-/**
- * Created by kraus on 27/08/2016.
- */
 public class ListaProvasFragment extends Fragment {
 
     @Nullable

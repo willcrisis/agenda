@@ -6,9 +6,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
 
-/**
- * Created by kraus on 24/08/2016.
- */
 public class WebClient {
     public String post(String json) {
         try {
@@ -27,6 +24,7 @@ public class WebClient {
 
             Scanner scanner = new Scanner(connection.getInputStream());
             String result = scanner.next();
+            scanner.close();
 
             return result;
         } catch (IOException e) {

@@ -1,18 +1,27 @@
 package willcrisis.com.agenda.modelo;
 
-import java.io.Serializable;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.Required;
 
-/**
- * Created by kraus on 17/08/2016.
- */
-public class Aluno implements Serializable {
+public class Aluno extends RealmObject {
+    @PrimaryKey
+    @Required
     private Long id;
+
+    @Required
     private String nome;
+
     private String endereco;
+
     private String telefone;
+
     private String email;
+
     private String site;
+
     private Double nota;
+
     private String caminhoFoto;
 
     public Long getId() {
@@ -69,11 +78,6 @@ public class Aluno implements Serializable {
 
     public void setNota(Double nota) {
         this.nota = nota;
-    }
-
-    @Override
-    public String toString() {
-        return getNome();
     }
 
     public String getCaminhoFoto() {

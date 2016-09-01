@@ -15,16 +15,17 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.io.IOException;
 import java.util.List;
 
-import willcrisis.com.agenda.dao.AlunoDAO;
+import willcrisis.com.agenda.dao.AlunoRealmDAO;
 import willcrisis.com.agenda.modelo.Aluno;
 
-/**
- * Created by willian.krause on 29/08/2016.
- */
 public class MapaFragment extends SupportMapFragment implements OnMapReadyCallback {
+    private AlunoRealmDAO dao;
+
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
+
+        dao = new AlunoRealmDAO(getContext());
 
         getMapAsync(this);
     }
@@ -37,9 +38,7 @@ public class MapaFragment extends SupportMapFragment implements OnMapReadyCallba
             googleMap.moveCamera(update);
         }
 
-        AlunoDAO dao = new AlunoDAO(getContext());
         List<Aluno> lista = dao.listar();
-        dao.close();
 
         for (Aluno aluno : lista) {
             LatLng coordenada = obterCoordenadasDoEndereco(aluno.getEndereco());
